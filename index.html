@@ -1,42 +1,40 @@
-<!DOCTYPE html> 
-
-<html lang="pt br">
-    <head> 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=devide-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Cobrinha</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #2c3e50;
+        }
+        .container {
+            text-align: center;
+            background-color: azure;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0px 10px 30px black;
+        }
+        .pontuacao {
+            font-weight: bold;
+            color: #2ecc71;
+            font-size: 1.5em;
+        }
         
-        <!-- <meta charset>: Texto solto define o conjunto de caracteres (encoding) da página
-         garantindo que acentos de caracteres especiais aparecam corretamente-->
-         
-         
-         <title>Jogo da cobrinha</title>
-        
-         <!--Estilos e CSS vão ficar abaixo desta linha.-->
-
-        <style>
-   
-            .container {
-                text-align: center;
-                background-color: azure;
-                padding: 30px;
-                border-radius: 30px;
-                box-shadow: 0px 10px 30px black;
-            
-            }
-
-        </style>
-
-
-    </head>
-    <body> 
-
-        <div class="container">
-
-    <h1>&#x128013; Jogo da Cobrinha</h1>
-
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐍 Jogo da Cobrinha</h1>
+        <div class="info">
+            Pontuação: <span class="pontuacao">0</span>
         </div>
-        
-        <h3> Em breve!</h3>
-    </body>
-
+        <canvas id="snakeGame" width="400" height="400"></canvas>
+    </div>
+</body>
 </html>
