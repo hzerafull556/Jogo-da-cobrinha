@@ -1,73 +1,11 @@
-<DOCTYPE html>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Cobrinha</title>
 
-    <html lang="pt-br">
-        <head>
-
-        <meta charset="UTF-8">
-        <meta name="vieweport" content="width=devide-width, initial-scale=1.0">
-
-        <title>Jogo da Cobrinha</title>
-
-        <style>
-
-        .container { 
-            text-align: center;
-            background-color: #284574;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0px 10px 30px rgb( black );
-        }
-
-        .info { 
-
-        font-size: 1em;
-
-        }
-
-        .pontuacao {
-
-            font-weight:bold;
-            color:rgb(0, 0, 0);
-        }
-
-        .recorde{
-            font-weight:bold;
-            color:rgb(0, 0, 0);
-        }
-
-        #canvas{
-            border: 3px solid #333;
-            border-radius: 10px;
-            background-color: white;
-            display: block;
-
-            margin: 20px auto;
-            box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
-        }
-
-        .controles{
-            margin-top: 20px;
-
-        }
-
-        button{
-            font-size: 16px;
-            cursor: pointer;
-            background-color: green;
-
-            padding: 12px 25px;
-            color: white;
-            border: none;
-            border-radius: 0px;
-            margin: 5px;
-            transition: all 0.3s ease;
-            
-
-
-        }
-
-
-        /*fundo da pagina (background)*/
+    <style>
         body {
             margin: 0;
             padding: 0;
@@ -75,69 +13,101 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            /* Um gradiente que vai do azul escuro para um tom mais suave */
             background: linear-gradient(135deg, #1a2a44 0%, #284574 100%);
             font-family: Arial, sans-serif;
-                                                }   
+        }
 
-        </style>
+        .container { 
+            text-align: center;
+            background-color: #284574;
+            padding: 30px;
+            border-radius: 20px;
+            /* Correção: Corrigido o box-shadow para preto semi-transparente */
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            color: white; /* Adicionado para o texto aparecer melhor no fundo azul */
+        }
 
-    </head>
-    <body>
-        <div class="container">
-            <h1> &#128013; Jogo da cobrinha</h1>
-            
-            <div class="info">
+        #canvas {
+            border: 3px solid #333;
+            border-radius: 10px;
+            background-color: white;
+            display: block;
+            margin: 20px auto;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+        }
 
-                <div class="pontuacao">
-                    pontuação: <span id="pontos"> (0) </span>
-                </div>
-                <div class="recorde">
-                    Recorde: <span id="recorde"> (0) </span>
-                </div>
-            </div>
+        .pontuacao, .recorde {
+            font-weight: bold;
+            color: #ffcc00; /* Um amarelo para destacar no azul */
+        }
 
-            <canvas id="canvas" width="400" height="400"> 
-        <!--E um elemento especial para desenho 2D ou 3D. Por so só,
-         é apenas um retangulo vazio. o JAVASCRIPT vai usar o "contexto 2D"
-          para desenhar a cobra, a comifa etc...-->
+        button {
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #27ae60;
+            padding: 12px 25px;
+            color: white;
+            border: none;
+            border-radius: 8px; /* Ficou melhor que 0px! */
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
 
+        button:hover {
+            background-color: #2ecc71;
+            transform: scale(1.05);
+        }
 
-                
-
-            </canvas>
-
-            <div> 
-
-            <button onclick="alert('em construção')">Iniciar jogo</button>
-            <button>pausar / continuar</button>
-
-
-            </div>
-
-            <div class="teclas">
-
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                
-            </div>
-
-        </div>
+        /* Estilização simples para as teclas */
+        .teclas {
+            display: grid;
+            grid-template-columns: repeat(3, 40px);
+            gap: 5px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .tecla {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐍 Jogo da Cobrinha</h1>
         
-        <script> 
-            function iniciarJogo(){
-                console.log('Jogo começou!');
-                }
+        <div class="info">
+            <div class="pontuacao">Pontuação: <span id="pontos">0</span></div>
+            <div class="recorde">Recorde: <span id="recorde">0</span></div>
+        </div>
 
-            function pausarJogo(){
-                console.log('Pausa no jogo!');
-            }
+        <canvas id="canvas" width="400" height="400"></canvas>
 
-        </script>
-    </body>
+        <div> 
+            <button onclick="iniciarJogo()">Iniciar jogo</button>
+            <button onclick="pausarJogo()">Pausar / Continuar</button>
+        </div>
+
+        <div class="teclas">
+            <div class="tecla-vazia"></div>
+            <div class="tecla">▲</div>
+            <div class="tecla-vazia"></div>
+            <div class="tecla">◀</div>
+            <div class="tecla">▼</div>
+            <div class="tecla">▶</div>
+        </div>
+    </div>        
+
+    <script> 
+        function iniciarJogo(){
+            alert('Jogo começou! (Lógica do Canvas será a próxima etapa)');
+            console.log('Jogo começou!');
+        }
+
+        function pausarJogo(){
+            console.log('Pausa no jogo!');
+        }
+    </script>
+</body>
 </html>
-
