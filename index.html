@@ -1,116 +1,142 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo da Cobrinha</title>
+	<html lang="pt-br">
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1a2a44 0%, #284574 100%);
-            font-family: Arial, sans-serif;
-        }
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .container { 
-            text-align: center;
-            background-color: #284574;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
-            color: white; 
-        }
+			<title>Jogo da cobrinha</title>
 
-        #canvas {
-            border: 3px solid #333;
-            border-radius: 10px;
-            background-color: white;
-            display: block;
-            margin: 20px auto;
-            box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
-        }
+			<style>
+				.container {
+					text-align: center;
+					background-color: #F0F0F0FF;
+					padding: 30px;
+					border-radius: 20px;
+					box-shadow: 0px 10px 30px #000000FF;
+				}
 
-        .pontuacao, .recorde {
-            font-weight: bold;
-            color: #ffcc00; 
-        }
+				.info {
+					font-size: 1em;
+				}
 
-        button {
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #27ae60;
-            padding: 12px 25px;
-            color: white;
-            border: none;
-            border-radius: 8px; 
-            margin: 5px;
-            transition: all 0.3s ease;
-        }
+				.pontuacao {
+					font-weight: bold;
+					color: #28A745;
+				}
 
-        button:hover {
-            background-color: #2ecc71;
-            transform: scale(1.05);
-        }
+				.recorde {
+					font-weight: bold;
+					color: #A72839;
+				}
 
-        /* estilização de teclas */
-        .teclas {
-            display: grid;
-            grid-template-columns: repeat(3, 40px);
-            gap: 5px;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        .tecla {
-            background: #333;
-            padding: 10px;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>🐍 Jogo da Cobrinha</h1>
-        
-        <div class="info">
-            <div class="pontuacao">Pontuação: <span id="pontos">0</span></div>
-            <div class="recorde">Recorde: <span id="recorde">0</span></div>
-        </div>
+				#canvas {
+					border: 3px solid #000000FF;
+					border-radius: 10px;
+					background-color: #FFFFFFFF;
+					display: block;
+					margin: 20px auto;
+					box-shadow: 0px 5px 15px #00000022
+				}
 
-        <canvas id="canvas" width="400" height="400"></canvas>
+				button {
+					font-size: 16px;
+					cursor: pointer;
+					background-color: #00FF00FF;
+					padding: 12px 25px;
+					color: #000000FF;
+					border: none;
+					border-radius: 8px;
+					margin: 5px;
+					transition: all 0.3s ease;
+				}
 
-        <div> 
-            <button onclick="iniciarJogo()">Iniciar jogo</button>
-            <button onclick="pausarJogo()">Pausar / Continuar</button>
-        </div>
+				.teclas {
+					display: grid;
+					grid-template-columns: repeat(3, 50px);
+					gap: 5px;
+					justify-content:center;
+					margin: 15px auto;
+				}
 
-        <div class="teclas">
-            <div class="tecla-vazia"></div>
-            <div class="tecla">▲</div>
-            <div class="tecla-vazia"></div>
-            <div class="tecla">◀</div>
-            <div class="tecla">▼</div>
-            <div class="tecla">▶</div>
-        </div>
+				.tecla {
+                    width: 50px;
+                    height: 50px;
+                    background-color: #000000FF;
+                    color: #FFFFFFFF;
+                    border: none;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    font-size: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+				}
 
-        <div>
-            <p> aodoasjdiasdiasjdaisjd </p>
-        </div>
-    </div>        
+				.tecla.vazia {
+                    background-color: #F0F0F0FF;
+                    cursor: default;
+				}
 
-    <script> 
-        function iniciarJogo(){
-            alert('Jogo começou! (Lógica do Canvas será a próxima etapa)');
-            console.log('Jogo começou!');
-        }
+				.tecla:active {
+                    background-color: #FF0000FF;
+				}
+			</style>
+		</head>
 
-        function pausarJogo(){
-            console.log('Pausa no jogo!');
-        }
-    </script>
-</body>
+		<body>
+			<div class="container">
+				<h1>&#128013; Jogo da Cobrinha</h1>
+
+				<div class="info">
+					<div class="pontuacao">
+						Pontuação: <span id="pontos"> 0 </span>
+					</div>
+					<div class="recorde">
+						Recorde: <span id="recorde"> 0 </span>
+					</div>
+				</div>
+
+				<canvas id="canvas" width="400" height="400">
+				</canvas>
+
+				<div>
+					<button onclick="init();"> Iniciar Jogo </button>
+					<button onclick="pause();"> Pausar / Continuar </button>
+				</div>
+
+				<div class="teclas">
+					<div class="tecla vazia"></div>
+
+					<div class="tecla">&#9650;</div>
+
+					<div class="tecla vazia"></div>
+
+					<div class="tecla">&#9668;</div>
+					<div class="tecla">&#9660;</div>
+					<div class="tecla">&#9658;</div>
+				</div>
+
+				<div>
+					<h3>Como jogar:</h3>
+					<p>Use as setas do teclado ou os botões acima para controlar a cobra</p>
+					<p>Coma as maçãs vermelhas para crescer e ganhar pontos</p>
+					<p>Não bata nas paredes nem no próprio corpo</p>
+				</div>
+			</div>
+
+			<script>
+				function init()
+				{
+					console.log("Jogo começou");
+				}
+
+				function pause()
+				{
+					console.log("Jogo pausou");
+				}
+			</script>
+		</body>
+
 </html>
