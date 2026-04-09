@@ -1,142 +1,127 @@
-<!DOCTYPE html>
-	<html lang="pt-br">
+<style>
+    body {
+        background-color: #0f172a; /* Fundo da página azul marinho escuro */
+        color: #f8fafc;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+    }
 
-		<head>
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    .container {
+        text-align: center;
+        background-color: #1e293b; /* Fundo do card */
+        padding: 40px;
+        border-radius: 24px;
+        box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.5);
+        border: 1px solid #334155;
+    }
 
-			<title>Jogo da cobrinha</title>
+    h1 {
+        margin-top: 0;
+        color: #4ade80; /* Verde vibrante */
+        text-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
+    }
 
-			<style>
-				.container {
-					text-align: center;
-					background-color: #F0F0F0FF;
-					padding: 30px;
-					border-radius: 20px;
-					box-shadow: 0px 10px 30px #000000FF;
-				}
+    .info {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 15px;
+        font-size: 1.1em;
+        background: #0f172a;
+        padding: 10px;
+        border-radius: 12px;
+    }
 
-				.info {
-					font-size: 1em;
-				}
+    .pontuacao {
+        font-weight: bold;
+        color: #4ade80;
+    }
 
-				.pontuacao {
-					font-weight: bold;
-					color: #28A745;
-				}
+    .recorde {
+        font-weight: bold;
+        color: #f87171; /* Vermelho moderno */
+    }
 
-				.recorde {
-					font-weight: bold;
-					color: #A72839;
-				}
+    #canvas {
+        border: 4px solid #334155;
+        border-radius: 12px;
+        background-color: #020617; /* Fundo do jogo quase preto */
+        display: block;
+        margin: 20px auto;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+    }
 
-				#canvas {
-					border: 3px solid #000000FF;
-					border-radius: 10px;
-					background-color: #FFFFFFFF;
-					display: block;
-					margin: 20px auto;
-					box-shadow: 0px 5px 15px #00000022
-				}
+    button {
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        background-color: #3b82f6; /* Azul moderno */
+        padding: 12px 20px;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        margin: 5px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
 
-				button {
-					font-size: 16px;
-					cursor: pointer;
-					background-color: #00FF00FF;
-					padding: 12px 25px;
-					color: #000000FF;
-					border: none;
-					border-radius: 8px;
-					margin: 5px;
-					transition: all 0.3s ease;
-				}
+    button:hover {
+        background-color: #2563eb;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    }
 
-				.teclas {
-					display: grid;
-					grid-template-columns: repeat(3, 50px);
-					gap: 5px;
-					justify-content:center;
-					margin: 15px auto;
-				}
+    button:active {
+        transform: translateY(0);
+    }
 
-				.tecla {
-                    width: 50px;
-                    height: 50px;
-                    background-color: #000000FF;
-                    color: #FFFFFFFF;
-                    border: none;
-                    cursor: pointer;
-                    border-radius: 5px;
-                    font-size: 20px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-weight: bold;
-				}
+    .teclas {
+        display: grid;
+        grid-template-columns: repeat(3, 55px);
+        gap: 8px;
+        justify-content: center;
+        margin: 25px auto;
+    }
 
-				.tecla.vazia {
-                    background-color: #F0F0F0FF;
-                    cursor: default;
-				}
+    .tecla {
+        width: 55px;
+        height: 55px;
+        background-color: #334155;
+        color: #f8fafc;
+        border: none;
+        cursor: pointer;
+        border-radius: 12px;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+        border-bottom: 4px solid #1e293b;
+    }
 
-				.tecla:active {
-                    background-color: #FF0000FF;
-				}
-			</style>
-		</head>
+    .tecla.vazia {
+        background-color: transparent;
+        border: none;
+        cursor: default;
+    }
 
-		<body>
-			<div class="container">
-				<h1>&#128013; Jogo da Cobrinha</h1>
+    .tecla:hover:not(.vazia) {
+        background-color: #475569;
+    }
 
-				<div class="info">
-					<div class="pontuacao">
-						Pontuação: <span id="pontos"> 0 </span>
-					</div>
-					<div class="recorde">
-						Recorde: <span id="recorde"> 0 </span>
-					</div>
-				</div>
+    .tecla:active:not(.vazia) {
+        background-color: #4ade80;
+        color: #064e3b;
+        transform: translateY(2px);
+        border-bottom-width: 0px;
+    }
 
-				<canvas id="canvas" width="400" height="400">
-				</canvas>
-
-				<div>
-					<button onclick="init();"> Iniciar Jogo </button>
-					<button onclick="pause();"> Pausar / Continuar </button>
-				</div>
-
-				<div class="teclas">
-					<div class="tecla vazia"></div>
-
-					<div class="tecla">&#9650;</div>
-
-					<div class="tecla vazia"></div>
-
-					<div class="tecla">&#9668;</div>
-					<div class="tecla">&#9660;</div>
-					<div class="tecla">&#9658;</div>
-				</div>
-
-				<div>
-					<h3>Como jogar:</h3>
-					<p>Use as setas do teclado ou os botões acima para controlar a cobra</p>
-					<p>Coma as maçãs vermelhas para crescer e ganhar pontos</p>
-					<p>Não bata nas paredes nem no próprio corpo</p>
-				</div>
-			</div>
-
-			<script>
-				function init()
-				{
-					console.log("Jogo começou");
-				}
-
-				function pause()
-				{
-					console.log("Jogo pausou");
-				}
-			</script>
-		</body>
-
-</html>
+    h3 { color: #94a3b8; margin-bottom: 5px; }
+    p { color: #64748b; font-size: 0.9em; margin: 5px 0; }
+</style>
