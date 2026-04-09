@@ -1,171 +1,169 @@
 <!DOCTYPE html>
-	<html lang="pt-br">
+<html lang="pt-br">
 
-		<head>
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-			<title>Jogo da cobrinha</title>
+    <title>Jogo da cobrinha</title>
 
-			<style>
-				.container {
-					text-align: center;
-					background-color: #F0F0F0FF;
-					padding: 30px;
-					border-radius: 20px;
-					box-shadow: 0px 10px 30px #000000FF;
-				}
+    <style>
+        .container {
+            text-align: center;
+            background-color: #F0F0F0FF;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px #000000FF;
+            font-family: sans-serif;
+        }
 
-				.info {
-					font-size: 1em;
-				}
+        .info {
+            font-size: 1em;
+        }
 
-				.pontuacao {
-					font-weight: bold;
-					color: #28A745;
-				}
+        .pontuacao {
+            font-weight: bold;
+            color: #28A745;
+        }
 
-				.recorde {
-					font-weight: bold;
-					color: #A72839;
-				}
+        .recorde {
+            font-weight: bold;
+            color: #A72839;
+        }
 
-				#canvas {
-					border: 3px solid #000000FF;
-					border-radius: 10px;
-					background-color: #FFFFFFFF;
-					display: block;
-					margin: 20px auto;
-					box-shadow: 0px 5px 15px #00000022
-				}
+        #canvas {
+            border: 3px solid #000000FF;
+            border-radius: 10px;
+            background-color: #FFFFFFFF;
+            display: block;
+            margin: 20px auto;
+            box-shadow: 0px 5px 15px #00000022
+        }
 
-				button {
-					font-size: 16px;
-					cursor: pointer;
-					background-color: #00FF00FF;
-					padding: 12px 25px;
-					color: #000000FF;
-					border: none;
-					border-radius: 8px;
-					margin: 5px;
-					transition: all 0.3s ease;
-				}
+        button {
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #00FF00FF;
+            padding: 12px 25px;
+            color: #000000FF;
+            border: none;
+            border-radius: 8px;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
 
-				.teclas {
-					display: grid;
-					grid-template-columns: repeat(3, 50px);
-					gap: 5px;
-					justify-content: center;
-					margin: 15px auto;
-				}
+        .teclas {
+            display: grid;
+            grid-template-columns: repeat(3, 50px);
+            gap: 5px;
+            justify-content: center;
+            margin: 15px auto;
+        }
 
-				.tecla {
-                    width: 50px;
-                    height: 50px;
-                    background-color: #000000FF;
-                    color: #FFFFFFFF;
-                    border: none;
-                    cursor: pointer;
-                    border-radius: 5px;
-                    font-size: 20px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-weight: bold;
-				}
+        .tecla {
+            width: 50px;
+            height: 50px;
+            background-color: #000000FF;
+            color: #FFFFFFFF;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
 
-				.tecla.vazia {
-                    background-color: #F0F0F0FF;
-                    cursor: default;
-				}
+        .tecla.vazia {
+            background-color: transparent;
+            cursor: default;
+        }
 
-				.tecla:active {
-                    background-color: #FF0000FF;
-				}
+        .tecla:active {
+            background-color: #FF0000FF;
+        }
 
-                .instrucoes {
-                    font-size: 16px;
-                    text-align: center;
-                    background-color: #808080;
-                    padding: 20px 25px;
-                    color: #000000FF;
-                    border-radius: 8px;
-                    margin: 20px auto;
-                    max-width: 520px;
-                    transition: all 0.3s ease;
-                }
+        .instrucoes {
+            font-size: 16px;
+            text-align: center;
+            background-color: #808080;
+            padding: 20px 25px;
+            color: #FFFFFF;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 520px;
+            transition: all 0.3s ease;
+        }
 
-                .instrucoes h3 {
-                    margin-bottom: 10px;
-                    color: red;
-                }
+        .instrucoes h3 {
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
 
-                @media (max-width: 600px){
-                    h1 {
-                        font-size: 1.8em;
-                    }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
 
-                    .info {
-                        font-size: 1em;
-                    }
-                }
-			</style>
-		</head>
+            .info {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
 
-		<body>
-			<div class="container">
-				<h1>&#128013; Jogo da Cobrinha</h1>
+<body>
+    <div class="container">
+        <h1>&#128013; Jogo da Cobrinha</h1>
 
-				<div class="info">
-					<div class="pontuacao">
-						Pontuação: <span id="pontos"> 0 </span>
-					</div>
-					<div class="recorde">
-						Recorde: <span id="recorde"> 0 </span>
-					</div>
-				</div>
+        <div class="info">
+            <div class="pontuacao">
+                Pontuação: <span id="pontos"> 0 </span>
+            </div>
+            <div class="recorde">
+                Recorde: <span id="recorde"> 0 </span>
+            </div>
+        </div>
 
-				<canvas id="canvas" width="400" height="400">
-				</canvas>
+        <canvas id="canvas" width="400" height="400">
+        </canvas>
 
-				<div>
-					<button onclick="init();"> Iniciar Jogo </button>
-					<button onclick="pause();"> Pausar / Continuar </button>
-				</div>
+        <div>
+            <button onclick="init()"> Iniciar Jogo </button>
+            <button onclick="pause()"> Pausar / Continuar </button>
+        </div>
 
-				<div class="teclas">
-					<div class="tecla vazia"></div>
-					<div class="tecla">&#9650;</div>
-					<div class="tecla vazia"></div>
-					<div class="tecla">&#9668;</div>
-					<div class="tecla">&#9660;</div>
-					<div class="tecla">&#9658;</div>
-				</div>
+        <div class="teclas">
+            <div class="tecla vazia"></div>
+            <button class="tecla" onclick="mudarDirecao('cima')">&#9650;</button>
+            <div class="tecla vazia"></div>
+            <button class="tecla" onclick="mudarDirecao('esquerda')">&#9664;</button>
+            <button class="tecla" onclick="mudarDirecao('baixo')">&#9660;</button>
+            <button class="tecla" onclick="mudarDirecao('direita')">&#9654;</button>
+        </div>
 
-				<div class="instrucoes">
-					<h3>Como jogar:</h3>
-					<p>Use as setas do teclado ou os botões acima para controlar a cobra</p>
-					<p>Coma as maçãs vermelhas para crescer e ganhar pontos</p>
-					<p>Não bata nas paredes nem no próprio corpo</p>
-				</div>
-			</div>
+        <div class="instrucoes">
+            <h3>Como jogar:</h3>
+            <p>Use as setas do teclado ou os botões acima para controlar a cobra</p>
+            <p>Coma as maçãs vermelhas para crescer e ganhar pontos</p>
+            <p>Não bata nas paredes nem no próprio corpo</p>
+        </div>
+    </div>
 
-			<script>
+    <script>
+        function mudarDirecao(novaDirecao) {
+            console.log("Direção alterada para: " + novaDirecao);
+        }
 
-                function mudarDirecao(novaDirecao){
-                    console.log(novaDirecao)
-                }
+        function init() {
+            console.log("Jogo começou");
+        }
 
-				function init()
-				{
-					console.log("Jogo começou");
-				}
-
-				function pause()
-				{
-					console.log("Jogo pausou");
-				}
-			</script>
-		</body>
+        function pause() {
+            console.log("Jogo pausou");
+        }
+    </script>
+</body>
 
 </html>
