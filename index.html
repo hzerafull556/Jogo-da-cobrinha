@@ -153,65 +153,66 @@
     <script>
 
         // CONFIGURAÇÕES DO JOGO
-
         const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext('2d');
 
-        // Tamanha de cada quadrado do jogo
+        // Tamanho de cada quadrado do jogo
         const tamanhoQuadrado = 20; 
 
         // Quantos quadrados cabem na largura e altura do espaço 2D
-
         const quantidadeQuadrados = canvas.width / tamanhoQuadrado;
 
 
         //------------------------
-        //Variaveis do jogo 
+        // Variáveis do jogo 
         //------------------------
 
         let cobra;             // Array que guarda as posições da cobra 
         let direcao;           // Direção atual da cobra 
-        let proximaDirecao;    // Porixma direção da cobra (evita viradas impossiveis)
+        let proximaDirecao;    // Próxima direção da cobra (evita viradas impossíveis)
         let comida;            // Posição da comida 
         let pontos;            // Pontuação atual 
         let recorde;           // Melhor pontuação 
         let jogoAtivo;         // Se o jogo está rodando ou não 
         let jogoPausado;       // Se o jogo está pausado 
-        let IntervaloJogo;     // COntrola a velocidade do jogo 
+        let intervaloJogo;     // Controla a velocidade do jogo 
 
 
         //=================
-        // Carregar recorde do naevador 
+        // Carregar recorde do navegador 
         //=================
  
-        recorde = localStorage.getItem('recordeCobrinha') || 231321;
+        recorde = localStorage.getItem('recordeCobrinha') || 0;
         document.getElementById('recorde').textContent = recorde;
 
 
         //=================
         // Iniciar jogo
         //=================
-        function iniciarJogo(){
+        function init() {
+            console.log("Jogo começou");
             cobra = [
-            {x: 10, y: 10},
-            {x: 9,  y: 10},
-            {x: 8,  y: 10},
-
+                {x: 10, y: 10},
+                {x: 9,  y: 10},
+                {x: 8,  y: 10}
             ];
-
+            pontos = 0;
+            document.getElementById('pontos').textContent = pontos;
+            jogoAtivo = true;
+            jogoPausado = false;
         }
 
 
         function mudarDirecao(novaDirecao) {
             console.log("Direção alterada para: " + novaDirecao);
-        }
-
-        function init() {
-            console.log("Jogo começou");
+            proximaDirecao = novaDirecao;
         }
 
         function pause() {
-            console.log("Jogo pausou");
+            if (jogoAtivo) {
+                jogoPausado = !jogoPausado;
+                console.log("Jogo pausado: " + jogoPausado);
+            }
         }
     </script>
 </body>
