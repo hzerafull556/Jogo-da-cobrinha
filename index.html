@@ -122,7 +122,7 @@
                 Pontuação: <span id="pontos"> 0 </span>
             </div>
             <div class="recorde">
-                Recorde: <span id="recorde"> 0 </span>
+                Recorde: <span id="recorde"> </span>
             </div>
         </div>
 
@@ -163,6 +163,31 @@
         // Quantos quadrados cabem na largura e altura do espaço 2D
 
         const quantidadeQuadrados = canvas.widt / tamanhoQuadrado;
+
+
+        //------------------------
+        //Variaveis do jogo 
+        //------------------------
+
+        let cobra;             // Array que guarda as posições da cobra 
+        let direcao;           // Direção atual da cobra 
+        let proximaDirecao;    // Porixma direção da cobra (evita viradas impossiveis)
+        let comida;            // Posição da comida 
+        let pontos;            // Pontuação atual 
+        let recorde;           // Melhor pontuação 
+        let jogoAtivo;         // Se o jogo está rodando ou não 
+        let jogoPausado;       // Se o jogo está pausado 
+        let IntervaloJogo;     // COntrola a velocidade do jogo 
+
+
+        //=================
+        // Carregar recorde do naevador 
+        //=================
+ 
+        recorde = localStorage.getItem('recordeCobrinha') || 231321;
+        document.getElementById('recorde').textContent = recorde 
+        
+
 
 
 
