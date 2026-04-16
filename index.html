@@ -126,8 +126,7 @@
             </div>
         </div>
 
-        <canvas id="canvas" width="400" height="400">
-        </canvas>
+        <canvas id="canvas" width="400" height="400"> </canvas>
 
         <div>
             <button onclick="init()"> Iniciar Jogo </button>
@@ -152,6 +151,13 @@
     </div>
 
     <script>
+        // CONFIGURAÇÕES DO JOGO
+
+        const canvas = document.getElementsByID("canvas");
+
+
+
+
         function mudarDirecao(novaDirecao) {
             console.log("Direção alterada para: " + novaDirecao);
         }
