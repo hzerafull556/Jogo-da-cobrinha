@@ -272,13 +272,32 @@
             //FUNÇÃO PARA DESENHAR OS ELEMENTOS VISUAIS DO JOGO
             //=============================
             function desenhar(){
+                // PASSO 1
                 //Limpar o fundo do Canvas
-                ctx.fillStyle = '#000000';
+                ctx.fillStyle = '#f0f0f0';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                //Desenhar a grade (opcional, para visualização)
+                // PASSO 2
+                // Desenhar a grade (linhas de referência)
                 ctx.strokeStyle = '#e0e0e0';
                 ctx.lineWidth = 0.5;
+
+                for(let i = 0; i <= quantidadeQuadrados; i++){
+                        //Linha vertical
+                        ctx.beginPath();
+                        ctx.moveTo(i * tamanhoQuadrado, 0);
+                        ctx.lineTo(i * tamanhoQuadrado, canvas.height);
+                        ctx.stroke();
+
+                        //Linha horizontal
+                        ctx.beginPath();
+                        ctx.moveTo(0, i * tamanhoQuadrado);
+                        ctx.lineTo(canvas.width, i * tamanhoQuadrado);
+                        ctx.stroke();
+                } 
+
+                
+               
 
                 ctx.fill();
             }
